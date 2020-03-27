@@ -1,6 +1,6 @@
 # socket_programming
 
-python3 : server
+python3 : server  
 python2 : client
 
 1. python3 환경에서 server.py 실행
