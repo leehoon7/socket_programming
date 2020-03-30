@@ -55,8 +55,8 @@ PORT = 65432
 s = socket_helper(HOST, PORT)
 com = communicator(s)
 
-episode = 5000
-t = 100
+episode = 2
+t = 5
 
 s = socket_helper(HOST, PORT)
 com = communicator(s)
@@ -77,7 +77,7 @@ if com.initialization():
             if j == t - 1 :
                 com.termination()
 
-            time.sleep(0.01)
+            time.sleep(3)
 
         if i == episode - 1 :
             com.finish()
