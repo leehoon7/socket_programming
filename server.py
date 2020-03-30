@@ -20,7 +20,6 @@ class socket_helper:
     def send_message(self, data):
         self.conn.sendall(data)
 
-
 HOST = '127.0.0.1'
 PORT = 65432
 
@@ -28,5 +27,5 @@ s = socket_helper(HOST, PORT)
 s.server_start()
 while True:
     msg = s.wait_and_receive()
-    print('received :', msg)
+    #print('received :', msg)
     s.send_message(msg.encode())
