@@ -27,17 +27,20 @@ s = socket_helper(HOST, PORT)
 s.server_start()
 while True:
     msg = s.wait_and_receive()
-    #print('received :', msg)
-    print(msg[0], msg[1:])
+    print('received :', msg)
 
     if msg[0] == 'i':
         pass
+
     elif msg[0] == 's':
         pass
+
     elif msg[0] == 'a':
         pass
+
     elif msg[0] == 't':
         pass
+
     elif msg[0] == 'f':
         break
 

@@ -37,9 +37,9 @@ class communicator:
         self.s.send_message('a')
         return self.s.receive_message()
 
-    # set_action(get_action())
-    def set_action(self, action):
-        pass
+    def send_reward(self, reward):
+        self.s.send_message('r' + str(reward))
+        self.s.receive_message()
 
     def termination(self):
         self.s.send_message('t')
@@ -72,12 +72,12 @@ if com.initialization():
             com.send_state([i+1, j+1])
 
             if j % 2 == 0:
-                com.set_action(com.get_action())
+                com.get_action()
 
             if j == t - 1 :
                 com.termination()
 
-            time.sleep(3)
+            time.sleep(0.1)
 
         if i == episode - 1 :
             com.finish()
