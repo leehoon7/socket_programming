@@ -39,7 +39,7 @@ class communicator:
         return self.s.receive_message()
 
     def send_reward(self, reward):
-        self.s.send_message(['r', str(reward)])
+        self.s.send_message(['r', reward])
         self.s.receive_message()
 
     def termination(self):
