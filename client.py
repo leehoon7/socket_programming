@@ -90,7 +90,7 @@ if __name__ == "__main__":
         print('total time : '+str(time.time() - start))
         print('************')
 
-        print('***** test *****')
+        # for test
         com.s.send_message(['check_for_various_type', 123123, 0.123123, np.array([1, 2, 3])])
 
     else :
