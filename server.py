@@ -1,6 +1,7 @@
 # for python 3.x
 import socket
 import pickle
+import numpy as np
 
 class socket_helper:
     def __init__(self, host, port):
@@ -16,7 +17,6 @@ class socket_helper:
     def wait_and_receive(self, buffer_size=1024):
         self.conn, self.addr = self.s.accept()
         print('accepted : connected by', self.addr)
-        #return self.conn.recv(buffer_size).decode()
         return pickle.loads(self.conn.recv(buffer_size))
 
     def send_message(self, data):
@@ -35,19 +35,17 @@ if __name__ == "__main__":
         print('received :', msg)
 
         if msg[0] == 'i':
-            pass
+            s.send_message('i')
 
         elif msg[0] == 's':
-            pass
+            s.send_message('s')
 
         elif msg[0] == 'a':
-            pass
+            s.send_message('a')
 
         elif msg[0] == 't':
-            pass
+            s.send_message('t')
 
-        elif msg[0] == 'finish':
-            print(msg)
+        elif msg[0] == 'f':
+            s.send_message(['check for various type', 0.123123, 123123, np.array([1, 2, 3])])
             break
-
-        s.send_message(msg.encode())

@@ -2,6 +2,7 @@
 from socket import *
 import pickle
 
+
 class socket_helper:
     def __init__(self, host, port):
         self.HOST = host
@@ -14,12 +15,13 @@ class socket_helper:
     def send_message(self, data):
         self.s = socket()
         self.s.connect((self.HOST, self.PORT))
-        self.s.sendall(pickle.dumps(data))
+        self.s.sendall(pickle.dumps(data, protocol=2))
 
     def receive_message(self, buffer_size = 1024):
-        temp = self.s.recv(buffer_size)
+        temp = pickle.loads(self.s.recv(buffer_size))
         self.s.close()
-        return pickle.loads(temp)
+        print(temp)
+        return temp
 
 class communicator:
     def __init__(self, socket):
@@ -30,7 +32,7 @@ class communicator:
         return 'i' == self.s.receive_message()
 
     def send_state(self, state):
-        self.s.send_message('s' + str(state))
+        self.s.send_message(['s', state])
         self.s.receive_message()
 
     def get_action(self):
@@ -46,12 +48,13 @@ class communicator:
         self.s.receive_message()
 
     def finish(self):
-        self.s.send_message(['finish', 'check'])
+        self.s.send_message(['f', 'check'])
+        temp = self.s.receive_message()
 
 if __name__ == "__main__":
 
     import time
-    
+
     HOST = '127.0.0.1'
     PORT = 65432
 
@@ -60,6 +63,7 @@ if __name__ == "__main__":
 
     s = socket_helper(HOST, PORT)
     com = communicator(s)
+    start = 0
 
     if com.initialization():
         start = time.time()
@@ -82,7 +86,12 @@ if __name__ == "__main__":
             if i == episode - 1 :
                 com.finish()
 
-    print('************')
-    print('all finished')
-    print('total time : '+str(time.time() - start))
-    print('************')
+        print('************')
+        print('all finished')
+        print('total time : '+str(time.time() - start))
+        print('************')
+
+    else :
+        print('************')
+        print('error')
+        print('************')
