@@ -22,29 +22,32 @@ class socket_helper:
     def send_message(self, data):
         self.conn.sendall(pickle.dumps(data, protocol=2))
 
-HOST = '127.0.0.1'
-PORT = 65432
 
-s = socket_helper(HOST, PORT)
-s.server_start()
-while True:
-    msg = s.wait_and_receive()
-    print('received :', msg)
+if __name__ == "__main__":
 
-    if msg[0] == 'i':
-        pass
+    HOST = '127.0.0.1'
+    PORT = 65432
+    
+    s = socket_helper(HOST, PORT)
+    s.server_start()
+    while True:
+        msg = s.wait_and_receive()
+        print('received :', msg)
 
-    elif msg[0] == 's':
-        pass
+        if msg[0] == 'i':
+            pass
 
-    elif msg[0] == 'a':
-        pass
+        elif msg[0] == 's':
+            pass
 
-    elif msg[0] == 't':
-        pass
+        elif msg[0] == 'a':
+            pass
 
-    elif msg[0] == 'finish':
-        print(msg)
-        break
+        elif msg[0] == 't':
+            pass
 
-    s.send_message(msg.encode())
+        elif msg[0] == 'finish':
+            print(msg)
+            break
+
+        s.send_message(msg.encode())

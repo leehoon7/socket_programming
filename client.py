@@ -49,41 +49,42 @@ class communicator:
     def finish(self):
         self.s.send_message(['finish', 'check'])
 
+if __name__ == "__main__":
 
-HOST = '127.0.0.1'
-PORT = 65432
+    HOST = '127.0.0.1'
+    PORT = 65432
 
-s = socket_helper(HOST, PORT)
-com = communicator(s)
+    s = socket_helper(HOST, PORT)
+    com = communicator(s)
 
-episode = 2
-t = 5
+    episode = 2
+    t = 5
 
-s = socket_helper(HOST, PORT)
-com = communicator(s)
+    s = socket_helper(HOST, PORT)
+    com = communicator(s)
 
-if com.initialization():
-    start = time.time()
-    for i in range(episode):
-        print('episode ' + str(i+1) + ' start..')
+    if com.initialization():
+        start = time.time()
+        for i in range(episode):
+            print('episode ' + str(i+1) + ' start..')
 
-        for j in range(t):
-            print('  time: ' + str(j+1))
+            for j in range(t):
+                print('  time: ' + str(j+1))
 
-            com.send_state([i+1, j+1])
+                com.send_state([i+1, j+1])
 
-            if j % 2 == 0:
-                com.get_action()
+                if j % 2 == 0:
+                    com.get_action()
 
-            if j == t - 1 :
-                com.termination()
+                if j == t - 1 :
+                    com.termination()
 
-            time.sleep(0.1)
+                time.sleep(0.1)
 
-        if i == episode - 1 :
-            com.finish()
+            if i == episode - 1 :
+                com.finish()
 
-print('************')
-print('all finished')
-print('total time : '+str(time.time() - start))
-print('************')
+    print('************')
+    print('all finished')
+    print('total time : '+str(time.time() - start))
+    print('************')
