@@ -1,7 +1,7 @@
 # for python 2.x
 from socket import *
 import pickle
-
+import numpy as np
 
 class socket_helper:
     def __init__(self, host, port):
@@ -20,7 +20,6 @@ class socket_helper:
     def receive_message(self, buffer_size = 1024):
         temp = pickle.loads(self.s.recv(buffer_size))
         self.s.close()
-        print(temp)
         return temp
 
 class communicator:
@@ -28,7 +27,7 @@ class communicator:
         self.s = socket
 
     def initialization(self):
-        self.s.send_message('i')
+        self.s.send_message(['i'])
         return 'i' == self.s.receive_message()
 
     def send_state(self, state):
@@ -36,20 +35,20 @@ class communicator:
         self.s.receive_message()
 
     def get_action(self):
-        self.s.send_message('a')
+        self.s.send_message(['a'])
         return self.s.receive_message()
 
     def send_reward(self, reward):
-        self.s.send_message('r' + str(reward))
+        self.s.send_message(['r', str(reward)])
         self.s.receive_message()
 
     def termination(self):
-        self.s.send_message('t')
+        self.s.send_message(['t'])
         self.s.receive_message()
 
     def finish(self):
-        self.s.send_message(['f', 'check'])
-        temp = self.s.receive_message()
+        self.s.send_message(['f'])
+        return self.s.receive_message()
 
 if __name__ == "__main__":
 
@@ -84,12 +83,15 @@ if __name__ == "__main__":
                 time.sleep(0.1)
 
             if i == episode - 1 :
-                com.finish()
+                print(com.finish())
 
         print('************')
         print('all finished')
         print('total time : '+str(time.time() - start))
         print('************')
+
+        print('***** test *****')
+        com.s.send_message(['check_for_various_type', 123123, 0.123123, np.array([1, 2, 3])])
 
     else :
         print('************')

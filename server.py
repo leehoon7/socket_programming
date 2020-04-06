@@ -47,5 +47,7 @@ if __name__ == "__main__":
             s.send_message('t')
 
         elif msg[0] == 'f':
-            s.send_message(['check for various type', 0.123123, 123123, np.array([1, 2, 3])])
+            s.send_message(['check for various type', 123123, 0.123123, np.array([1, 2, 3])])
+            msg = s.wait_and_receive()
+            print('received :', msg)
             break
