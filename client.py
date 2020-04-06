@@ -1,6 +1,5 @@
 # for python 2.x
 from socket import *
-import time
 import pickle
 
 class socket_helper:
@@ -51,6 +50,8 @@ class communicator:
 
 if __name__ == "__main__":
 
+    import time
+    
     HOST = '127.0.0.1'
     PORT = 65432
 
