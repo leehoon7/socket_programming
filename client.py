@@ -1,6 +1,7 @@
 # for python 2.x
 from socket import *
 import time
+import pickle
 
 class socket_helper:
     def __init__(self, host, port):
@@ -14,12 +15,12 @@ class socket_helper:
     def send_message(self, data):
         self.s = socket()
         self.s.connect((self.HOST, self.PORT))
-        self.s.sendall(str(data))
+        self.s.sendall(pickle.dumps(data))
 
     def receive_message(self, buffer_size = 1024):
         temp = self.s.recv(buffer_size)
         self.s.close()
-        return temp
+        return pickle.loads(temp)
 
 class communicator:
     def __init__(self, socket):
@@ -46,7 +47,7 @@ class communicator:
         self.s.receive_message()
 
     def finish(self):
-        self.s.send_message('f')
+        self.s.send_message(['finish', 'check'])
 
 
 HOST = '127.0.0.1'

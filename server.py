@@ -1,5 +1,6 @@
 # for python 3.x
 import socket
+import pickle
 
 class socket_helper:
     def __init__(self, host, port):
@@ -15,10 +16,11 @@ class socket_helper:
     def wait_and_receive(self, buffer_size=1024):
         self.conn, self.addr = self.s.accept()
         print('accepted : connected by', self.addr)
-        return self.conn.recv(buffer_size).decode()
+        #return self.conn.recv(buffer_size).decode()
+        return pickle.loads(self.conn.recv(buffer_size))
 
     def send_message(self, data):
-        self.conn.sendall(data)
+        self.conn.sendall(pickle.dumps(data, protocol=2))
 
 HOST = '127.0.0.1'
 PORT = 65432
@@ -41,7 +43,8 @@ while True:
     elif msg[0] == 't':
         pass
 
-    elif msg[0] == 'f':
+    elif msg[0] == 'finish':
+        print(msg)
         break
 
     s.send_message(msg.encode())
