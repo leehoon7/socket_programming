@@ -54,9 +54,6 @@ if __name__ == "__main__":
     HOST = '127.0.0.1'
     PORT = 65432
 
-    s = socket_helper(HOST, PORT)
-    com = communicator(s)
-
     episode = 2
     t = 5
 

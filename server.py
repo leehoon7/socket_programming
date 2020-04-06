@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
     HOST = '127.0.0.1'
     PORT = 65432
-    
+
     s = socket_helper(HOST, PORT)
     s.server_start()
     while True:
